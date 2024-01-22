@@ -13,18 +13,18 @@ const Carrousel = () => {
     }, []);
 
     return (
-        <Carousel style={{ maxHeight: "400px" }}>
+        <Carousel style={{  margin: 'auto' }}>
             {data.results?.map((movie) => (
-                <Carousel.Item key={movie.id}>
+                <Carousel.Item key={movie.id} style={{ maxHeight: "600px", }}>
                     <img
                         className="d-block w-100 h-50"
-                        src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                        src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
                         alt={movie.title}
-                        style={{ maxHeight: '400px', objectFit: 'cover' }}
+                        style={{ maxHeightHeight: '400px', objectFit: 'cover' }}
                     />
                     <Carousel.Caption>
-                        <h3>{movie.title}</h3>
-                        <p>
+                        <h2 style={{color:"black", fontWeight: "900"}}>{movie.title}</h2>
+                        <p style={{color:"black", fontWeight: "600" }}>
                             {movie.overview.length > 100
                                 ? movie.overview.substring(0, 100) + "..."
                                 : movie.overview}
