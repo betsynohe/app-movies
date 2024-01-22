@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import axios from "axios"
 
-export default function useDataMovies() {
+export default function useMovies() {
   const [data, setData] = useState([])
   const [totalPages, setTotalPages] = useState()
   const [currentPage, setCurrentPage] = useState(1)
