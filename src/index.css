@@ -6,3 +6,33 @@ body{
     font-family: "Roboto";
     background-color: black;
 }
+
+/* CarrouselCards.css */
+.slick-prev, .slick-next {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.slick-prev {
+    left: 30px;
+}
+
+.slick-next {
+    right: 30px;
+}
+/* CarrouselCards.css */
+.slick-prev, .slick-next {
+    font-size: 16px;
+    line-height: 1;
+}
+/* CarrouselCards.css */
+@media (max-width: 768px) {
+    .slick-prev, .slick-next {
+        display: none;
+    }
+}
+/* CarrouselCards.css */
+.slick-prev, .slick-next {
+    margin: 0;
+    padding: 0;
+}
