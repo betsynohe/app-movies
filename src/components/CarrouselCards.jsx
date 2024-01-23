@@ -1,100 +1,80 @@
-// CarouselMovies.jsx
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
 import { Card, Button } from "react-bootstrap";
+import useMovies from "../customHooks/useMovies";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-const CarrouselCards = () => {
-    const [popularMovies, setPopularMovies] = useState([]);
+const CarrouselCards = ({ url, title }) => {
+    const { data, getData } = useMovies([]);
 
     useEffect(() => {
-        const fetchPopularMovies = async () => {
-            try {
-                const apiKey = import.meta.env.VITE_TMDB_API_KEY;
-                const response = await axios.get(
-                    `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`
-                );
+        getData(url);
+    }, [url, getData]);
 
-                setPopularMovies(response.data.results);
-            } catch (error) {
-                console.error("Error fetching popular movies:", error);
-            }
-        };
-
-        fetchPopularMovies();
-    }, []);
-
-    const responsive = {
-        desktop: {
-            breakpoint: { max: 3000, min: 1024 },
-            items: 3,
-            slidesToSlide: 3,
-        },
-        tablet: {
-            breakpoint: { max: 1024, min: 464 },
-            items: 2,
-            slidesToSlide: 2,
-        },
-        mobile: {
-            breakpoint: { max: 464, min: 0 },
-            items: 1,
-            slidesToSlide: 1,
-        },
-    };
-    const carouselOptions = {
-        responsive: responsive,
-        infinite: true, // Habilitar autoplay infinito
-        autoPlay: true, // Habilitar autoplay
-        autoPlaySpeed: 3000, // Velocidad de cambio de tarjetas en milisegundos
-        keyBoardControl: true, // Permitir control mediante teclado
-        removeArrowOnDeviceType: ["tablet", "mobile"],
-        renderButtonGroupOutside: true, // Renderizar botones fuera del carrusel
-        customButtonGroup: (
-            <Button
-                style={{
-                    marginTop: "50px",
-                    position: "absolute",
-                    top: "50%",
-                    zIndex: 1,
-                    background: "rgba(0,0,0,0.5)",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "50%",
-                    padding: "10px",
-                    cursor: "pointer",
-                }}>
-                &#8592; {/* Flecha izquierda */}
-            </Button>
-        ),
+    const sliderSettings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 5000,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true,
+                },
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                },
+            },
+        ],
     };
 
     return (
-        <div style={{marginTop: "80px",}}>
-            <Carousel {...carouselOptions} >
-            {popularMovies.map((movie) => (
-                <Card
-                    key={movie.id}
-                    style={{ width: "400px", margin: "0 40px" }}>
-                    <Card.Img
-                        variant="top"
-                        src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-                    />
-                    <Card.Body>
-                        <Card.Title
-                            style={{
-                                fontWeight: "bold",
-                                fontSize: '15px'
-                            }}>
-                            {movie.title}
-                        </Card.Title>
-                        <Button variant="primary">Ver detalles</Button>
-                    </Card.Body>
-                </Card>
-            ))}
-        </Carousel>
+        <div style={{ marginTop: "25px" }}>
+            <h2 style={{ textAlign: "center", marginBottom: "20px", color:"white", fontSize: "36px" }}>
+                {title}
+            </h2>
+            <Slider {...sliderSettings}>
+                {data.results &&
+                    data.results.map((movie) => (
+                        <div key={movie.id} style={{ margin: "0 10px"}}>
+                            <Card style={{ width: "400px" }}>
+                                <Card.Img
+                                    variant="top"
+                                    src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+                                />
+                                <Card.Body style={{
+                                    backgroundColor:"black",
+                                    margin:"30px"
+                                }}>
+                                    <Card.Title
+                                        style={{
+                                            fontWeight: "bold",
+                                            fontSize: "18px",
+                                            color: "white"
+                                        }}>
+                                        {movie.title}
+                                    </Card.Title>
+                                    <Button variant="primary">
+                                        Ver detalles
+                                    </Button>
+                                </Card.Body>
+                            </Card>
+                        </div>
+                    ))}
+            </Slider>
         </div>
-        
     );
 };
 
