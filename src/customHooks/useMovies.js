@@ -15,6 +15,7 @@ export default function useDataMovies() {
         setData(data)
         setTotalPages(data.total_pages)
     } catch (error) {
+        console.error('Error fetching data:', error);
         navigate("/not-found")
     }
   }
