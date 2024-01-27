@@ -1,11 +1,10 @@
-import { Col, Form, Row } from "react-bootstrap";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import { Nav, Navbar, Container, Form, Row, Col } from "react-bootstrap";
 import Logo from "../assets/pnglogo.png";
 import { MdMovieFilter } from "react-icons/md";
 import { BiSolidCameraMovie } from "react-icons/bi";
 import { FaRegStar } from "react-icons/fa6";
+import { NavLink } from "react-router-dom";
+/* import "./NavBar.css"; */ // Asegúrate de importar tu archivo CSS aquí
 
 export default function NavBar() {
     return (
@@ -16,7 +15,7 @@ export default function NavBar() {
                 style={{ backgroundColor: "rgb(58, 53, 53)" }}
                 data-bs-theme="light">
                 <Container>
-                    <Navbar.Brand href="#home">
+                    <Navbar.Brand as={NavLink} to="/">
                         <img
                             src={Logo}
                             width="100"
@@ -27,64 +26,23 @@ export default function NavBar() {
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="me-auto" style={{marginLeft: "20px"}}>
+                        <Nav className="me-auto" style={{ marginLeft: "20px" }}>
                             <Nav.Link
-                                href="#features"
-                                style={{
-                                    marginRight: "20px",
-                                    color: "white",
-                                    border: "1px solid transparent",
-                                    transition: "border-color 0.5s ease-in-out",
-                                }}
-                                onMouseOver={(e) => {
-                                    e.target.style.background = "white";
-                                    e.target.style.color = "black";
-                                    e.target.style.borderColor = "lightgray";
-                                }}
-                                onMouseOut={(e) => {
-                                    e.target.style.background = "transparent";
-                                    e.target.style.color = "white";
-                                    e.target.style.borderColor = "transparent";
-                                }}>
+                                as={NavLink}
+                                to="/novedades"
+                                className="nav-link-custom">
                                 <MdMovieFilter /> Ultimos Lanzamientos
                             </Nav.Link>
                             <Nav.Link
-                                href="#pricing"
-                                style={{
-                                    marginRight: "20px",
-                                    color: "white",
-                                    border: "1px solid transparent",
-                                    transition: "border-color 0.5s ease-in-out",
-                                }}
-                                onMouseOver={(e) => {
-                                    e.target.style.background = "white";
-                                    e.target.style.color = "black";
-                                    e.target.style.borderColor = "lightgray";
-                                }}
-                                onMouseOut={(e) => {
-                                    e.target.style.background = "transparent";
-                                    e.target.style.color = "white";
-                                    e.target.style.borderColor = "transparent";
-                                }}>
+                                as={NavLink}
+                                to="/populares"
+                                className="nav-link-custom">
                                 <BiSolidCameraMovie /> Populares
                             </Nav.Link>
                             <Nav.Link
-                                href="#pricing"
-                                style={{
-                                    color: "white",
-                                    border: "1px solid transparent",
-                                    transition: "border-color 0.5s ease-in-out",
-                                }}
-                                onMouseOver={(e) => {
-                                    e.target.style.background = "white";
-                                    e.target.style.color = "black";
-                                    e.target.style.borderColor = "lightgray";
-                                }}
-                                onMouseOut={(e) => {
-                                    e.target.style.background = "transparent";
-                                    e.target.style.color = "white";
-                                    e.target.style.borderColor = "transparent";
-                                }}>
+                                as={NavLink}
+                                to="/favoritas"
+                                className="nav-link-custom">
                                 <FaRegStar /> Favoritas
                             </Nav.Link>
                         </Nav>
@@ -94,7 +52,7 @@ export default function NavBar() {
                                     <Form.Control
                                         type="text"
                                         placeholder="Buscar"
-                                        className=" mr-sm-2"
+                                        className="mr-sm-2"
                                     />
                                 </Col>
                             </Row>

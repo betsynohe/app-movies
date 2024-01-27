@@ -10,21 +10,26 @@ import { RiseLoader } from "react-spinners";
 export default function MoviesTypes({ type, titleType }) {
     const apiKey = import.meta.env.VITE_TMDB_API_KEY;
     const { getData, data, totalPages, loading, error } = useMovies();
-
-    const apiUrl = `https://api.themoviedb.org/3/movie/popular?language=es-ES&page=`;
-
+    const [prevType, setPrevType] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        getData(`${apiUrl}${currentPage}&api_key=${apiKey}`);
-    }, [apiUrl, currentPage, apiKey]);
+        if (type !== prevType) {
+            setCurrentPage(1);
+            setPrevType(type);
+        }
+        getData(
+            `https://api.themoviedb.org/3/movie/${type}?language=es-ES&page=${currentPage}&api_key=${apiKey}`
+        );
+    }, [currentPage, titleType]);
+
     return (
         <Container fluid>
             <Row className="justify-content-center">
                 <Col xs={12} md={10} lg={8}>
                     <Card bg="light" text="dark" className="mt-2 mb-4">
-                        <Card.Body>
-                            <Card.Title className="fw-bold fs-4">
+                        <Card.Body className="text-center">
+                            <Card.Title className="fw-bold fs-2">
                                 {titleType}
                             </Card.Title>
                         </Card.Body>

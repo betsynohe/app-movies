@@ -23,7 +23,7 @@ function CardsMovie({ movie }) {
                         transition: "transform 0.3s ease-in-out",
                     }}>
             <Col>
-                <Card style={{height:"300px"}}
+                <Card style={{height:"400px"}}
                     >
                     <Card.Img
                         variant="top"
