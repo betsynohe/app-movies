@@ -49,7 +49,7 @@ const CarrouselCards = ({ url, title }) => {
                 {data.results &&
                     data.results.map((movie) => (
                         <div key={movie.id} style={{ margin: "0 10px"}}>
-                            <Card style={{ width: "400px" }}>
+                            <Card style={{ width: "400px", marginLeft: "40px" }}>
                                 <Card.Img
                                     variant="top"
                                     src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}

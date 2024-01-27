@@ -2,9 +2,9 @@ import { Nav, Navbar, Container, Form, Row, Col } from "react-bootstrap";
 import Logo from "../assets/pnglogo.png";
 import { MdMovieFilter } from "react-icons/md";
 import { BiSolidCameraMovie } from "react-icons/bi";
-import { FaRegStar } from "react-icons/fa6";
+import { FaStar } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-/* import "./NavBar.css"; */ // Asegúrate de importar tu archivo CSS aquí
+import { IoIosHome } from "react-icons/io";
 
 export default function NavBar() {
     return (
@@ -24,9 +24,18 @@ export default function NavBar() {
                             alt="logo"
                         />
                     </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Toggle
+                        aria-controls="responsive-navbar-nav"
+                        style={{ borderColor: "white", color: "white" }}
+                    />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto" style={{ marginLeft: "20px" }}>
+                            <Nav.Link
+                                as={NavLink}
+                                to="/"
+                                className="nav-link-custom">
+                                <IoIosHome /> Home
+                            </Nav.Link>
                             <Nav.Link
                                 as={NavLink}
                                 to="/novedades"
@@ -43,7 +52,7 @@ export default function NavBar() {
                                 as={NavLink}
                                 to="/favoritas"
                                 className="nav-link-custom">
-                                <FaRegStar /> Favoritas
+                                <FaStar /> Favoritas
                             </Nav.Link>
                         </Nav>
                         <Form>

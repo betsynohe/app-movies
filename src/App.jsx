@@ -16,7 +16,7 @@ function App() {
                 <Route
                     path="/novedades"
                     element={
-                        <MoviesTypes type="now_playing" titleType="Novedades" />
+                        <MoviesTypes type="now_playing" titleType="Ultimos Lanzamientos" />
                     }
                 />
                 <Route

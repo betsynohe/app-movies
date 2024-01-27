@@ -15,32 +15,62 @@ const Carrousel = () => {
 
     return (
         <div>
-            <Carousel style={{  margin: 'auto' }}>
-            {data.results?.map((movie) => (
-                <Carousel.Item key={movie.id} style={{ maxHeight: "600px", backgroundColor:"white"}}>
-                    <img
-                        className="d-block w-100 h-50"
-                        src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-                        alt={movie.title}
-                        style={{ maxHeightHeight: '400px', objectFit: 'cover' }}
-                    />
-                    <Carousel.Caption>
-                        <h2 style={{color:"black", fontWeight: "900"}}>{movie.title}</h2>
-                        <p style={{color:"black", fontWeight: "600" }}>
-                            {movie.overview.length > 100
-                                ? movie.overview.substring(0, 100) + "..."
-                                : movie.overview}
-                        </p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-            ))}
-        </Carousel>
-        <CarrouselCards url={`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`}
-                title="Populares"/>
-        <CarrouselCards url={`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}`}
-                title="Ultimos lanzamientos"/>
+            <Carousel style={{ margin: "auto" }}>
+                {data.results?.map((movie) => (
+                    <Carousel.Item
+                        key={movie.id}
+                        style={{
+                            maxHeight: "600px",
+                            backgroundColor: "white",
+                        }}>
+                        <img
+                            className="d-block w-100 h-50"
+                            src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+                            alt={movie.title}
+                            style={{
+                                maxHeightHeight: "400px",
+                                objectFit: "cover",
+                            }}
+                        />
+                        <Carousel.Caption>
+                            <div
+                                style={{
+                                    backgroundColor: "white",
+                                    cursor: "pointer",
+                                    opacity: 0.8,
+                                    borderRadius: "5px",
+                                    padding: " 5px 10px",
+                                }}>
+                                <h2
+                                    style={{
+                                        color: "black",
+                                        fontWeight: "900",
+                                    }}>
+                                    {movie.title}
+                                </h2>
+                                <p
+                                    style={{
+                                        color: "black",
+                                        fontWeight: "600",
+                                    }}>
+                                    {movie.overview.length > 100
+                                        ? movie.overview.substring(0, 100) + "..."
+                                        : movie.overview}
+                                </p>
+                            </div>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                ))}
+            </Carousel>
+            <CarrouselCards
+                url={`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`}
+                title="Populares"
+            />
+            <CarrouselCards
+                url={`https://api.themoviedb.org/3/movie/top_rated?api_key=${apiKey}`}
+                title="Ultimos lanzamientos"
+            />
         </div>
-        
     );
 };
 
