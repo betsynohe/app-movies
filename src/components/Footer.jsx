@@ -5,7 +5,7 @@ import { FaGithubAlt } from "react-icons/fa";
 
 const Footer = () => {
     return (
-        <footer className="bg-dark text-white mt-5">
+        <footer className="bg-dark text-white">
             <Container style={{
                     display:"flex",
                     justifyContent:"center"

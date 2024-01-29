@@ -11,8 +11,7 @@ import useMovies from "../customHooks/useMovies";
 
 const CarrouselCards = ({ url, title }) => {
     const { data, getData } = useMovies([]);
-    const swiperRef = useRef(null);
-
+    
     useEffect(() => {
         getData(url);
     }, [url, getData]);

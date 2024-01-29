@@ -1,7 +1,7 @@
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import { useState } from "react";
-import notImageBackdrop from "../assets/not-image-backdrop.jpg";
+import NotImageBackdrop from "../assets/not-image-backdrop.jpg";
 
 function CardsMovie({ movie }) {
     const image_path = "https://image.tmdb.org/t/p/original";
@@ -33,7 +33,7 @@ function CardsMovie({ movie }) {
                                 }?api_key=${
                                     import.meta.env.VITE_TMDB_API_KEY
                                 }`
-                                : notImageBackdrop
+                                : NotImageBackdrop
                         }
                         alt={movie.title}
                         key={movie.id}

@@ -6,13 +6,14 @@ import CarrouselCards from "./components/CarrouselCards";
 import Footer from "./components/Footer";
 import NotFound from "./components/NotFound";
 import MoviesTypes from "./components/MoviesTypes";
+import DetailMovie from "./components/DetailMovie";
 function App() {
     return (
         <BrowserRouter>
             <NavBar />
-            
             <Routes>
                 <Route path="/" element={<Carrousel />} />
+                <Route path="/detailMovie/:id" element={<DetailMovie />} />
                 <Route
                     path="/novedades"
                     element={

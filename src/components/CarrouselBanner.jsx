@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { Carousel } from "react-bootstrap";
+import { Button, Carousel } from "react-bootstrap";
 import useMovies from "../customHooks/useMovies";
 import CarrouselCards from "./CarrouselCards";
+import { Link } from "react-router-dom";
 
 const Carrousel = () => {
     const apiKey = import.meta.env.VITE_TMDB_API_KEY;
@@ -23,7 +24,8 @@ const Carrousel = () => {
                             maxHeight: "600px",
                             backgroundColor: "white",
                         }}>
-                        <img
+                            <Link to={`/detailMovie/${movie.id}`}>
+                            <img
                             className="d-block w-100 h-50"
                             src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
                             alt={movie.title}
@@ -32,6 +34,8 @@ const Carrousel = () => {
                                 objectFit: "cover",
                             }}
                         />
+                            </Link>
+                        
                         <Carousel.Caption>
                             <div
                                 style={{
@@ -57,6 +61,11 @@ const Carrousel = () => {
                                         ? movie.overview.substring(0, 100) + "..."
                                         : movie.overview}
                                 </p>
+                                <Link to={`/detailMovie/${movie.id}`}>
+                                <Button  variant="dark">
+                                        Ver Más 
+                                </Button>
+                                </Link>
                             </div>
                         </Carousel.Caption>
                     </Carousel.Item>
