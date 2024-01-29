@@ -1,10 +1,11 @@
 import { Nav, Navbar, Container, Form, Row, Col } from "react-bootstrap";
-import Logo from "../assets/pnglogo.png";
+import Logo from "../../assets/pnglogo.png";
 import { MdMovieFilter } from "react-icons/md";
 import { BiSolidCameraMovie } from "react-icons/bi";
 import { FaStar } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { IoIosHome } from "react-icons/io";
+import Styles from "./Navbar.module.css";
 
 export default function NavBar() {
     return (
@@ -12,7 +13,8 @@ export default function NavBar() {
             <Navbar
                 collapseOnSelect
                 expand="lg"
-                style={{ backgroundColor: "rgb(58, 53, 53)" }}
+                className={Styles["nav-link-custom"]}
+                style={{ backgroundColor: "rgb(58, 53, 53)", margin:"0" }}
                 data-bs-theme="light">
                 <Container>
                     <Navbar.Brand as={NavLink} to="/">
@@ -33,25 +35,25 @@ export default function NavBar() {
                             <Nav.Link
                                 as={NavLink}
                                 to="/"
-                                className="nav-link-custom">
+                                className={Styles["nav-link-custom"]}>
                                 <IoIosHome /> Home
                             </Nav.Link>
                             <Nav.Link
                                 as={NavLink}
                                 to="/novedades"
-                                className="nav-link-custom">
+                                className={Styles["nav-link-custom"]}>
                                 <MdMovieFilter /> Ultimos Lanzamientos
                             </Nav.Link>
                             <Nav.Link
                                 as={NavLink}
                                 to="/populares"
-                                className="nav-link-custom">
+                                className={Styles["nav-link-custom"]}>
                                 <BiSolidCameraMovie /> Populares
                             </Nav.Link>
                             <Nav.Link
                                 as={NavLink}
                                 to="/favoritas"
-                                className="nav-link-custom">
+                                className={Styles["nav-link-custom"]}>
                                 <FaStar /> Favoritas
                             </Nav.Link>
                         </Nav>
