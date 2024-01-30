@@ -48,21 +48,22 @@ const Carrousel = () => {
                                 <h2
                                     style={{
                                         color: "black",
-                                        fontWeight: "900",
+                                        fontWeight: "bold",
+                                        fontSize:"18px"
                                     }}>
                                     {movie.title}
                                 </h2>
-                                <p
+                                <p className="d-none d-md-block" 
                                     style={{
                                         color: "black",
-                                        fontWeight: "600",
+                                        fontWeight: "500",
                                     }}>
                                     {movie.overview.length > 100
                                         ? movie.overview.substring(0, 100) + "..."
                                         : movie.overview}
                                 </p>
                                 <Link to={`/detailMovie/${movie.id}`}>
-                                <Button  variant="dark">
+                                <Button  variant="dark" size="sm">
                                         Ver Más 
                                 </Button>
                                 </Link>

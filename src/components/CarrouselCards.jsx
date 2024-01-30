@@ -8,16 +8,18 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Card, Button } from "react-bootstrap";
 import useMovies from "../customHooks/useMovies";
+import { Link } from "react-router-dom";
+import { FaEye } from "react-icons/fa";
 
 const CarrouselCards = ({ url, title }) => {
     const { data, getData } = useMovies([]);
-    
+
     useEffect(() => {
         getData(url);
     }, [url, getData]);
 
     return (
-        <div style={{ marginTop: "25px", margin: "25px 0px 25px 25px",}}>
+        <div style={{ marginTop: "25px", margin: "25px 0px 25px 25px" }}>
             <h2
                 style={{
                     textAlign: "center",
@@ -56,29 +58,30 @@ const CarrouselCards = ({ url, title }) => {
                 {data.results &&
                     data.results.map((movie) => (
                         <SwiperSlide key={movie.id}>
-                            <Card style={{ width: "350px" }}>
-                                <Card.Img
-                                    variant="top"
-                                    src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-                                />
-                                <Card.Body
-                                    style={{
-                                        backgroundColor: "black",
-                                        margin: "30px",
-                                    }}>
-                                    <Card.Title
+                            <Link
+                                to={`/detailMovie/${movie.id}`}
+                                style={{ textDecoration: "none" }}>
+                                <Card style={{ width: "350px" }}>
+                                    <Card.Img
+                                        variant="top"
+                                        src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+                                    />
+                                    <div
                                         style={{
-                                            fontWeight: "bold",
-                                            fontSize: "18px",
-                                            color: "white",
+                                            textAlign: "center",
+                                            marginTop: "5px",
+                                            marginBottom: "5px",
                                         }}>
-                                        {movie.title}
-                                    </Card.Title>
-                                    <Button variant="primary">
-                                        Ver detalles
-                                    </Button>
-                                </Card.Body>
-                            </Card>
+                                        <h5
+                                            style={{
+                                                fontWeight: "bold",
+                                            }}>
+                                            {movie.title}
+                                        </h5>
+                                        <FaEye />
+                                    </div>
+                                </Card>
+                            </Link>
                         </SwiperSlide>
                     ))}
             </Swiper>
