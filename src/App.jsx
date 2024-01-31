@@ -8,10 +8,13 @@ import NotFound from "./components/NotFound";
 import MoviesTypes from "./components/MoviesTypes";
 import DetailMovie from "./components/DetailMovie";
 import SearchMovie from "./components/SearchMovie";
+import FavoriteContextProvider from "./context/FavoriteContext.jsx";
+import FavoritesMovies from "./components/FavoritesMovies.jsx";
 function App() {
     const [search, setSearch] = useState("");
     return (
         <BrowserRouter>
+        <FavoriteContextProvider>
             <NavBar setSearch={setSearch} search={search} />
             <Routes>
                 <Route
@@ -40,10 +43,13 @@ function App() {
                         <MoviesTypes type="popular" titleType="Populares" />
                     }
                 />
+                <Route path="/favoritas" element={<FavoritesMovies />} />
                 <Route path="/carrouselcards" element={<CarrouselCards />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />
+        </FavoriteContextProvider>
+            
         </BrowserRouter>
     );
 }

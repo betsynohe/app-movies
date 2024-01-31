@@ -1,10 +1,18 @@
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import NotImageBackdrop from "../assets/not-image-backdrop.jpg";
+import { FaRegStar, FaEye } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { FavoriteContext } from "../context/FavoriteContext";
+
 
 function CardsMovie({ movie }) {
     const image_path = "https://image.tmdb.org/t/p/original";
+    
+    const { getFavorite, addFavorite, removeFavorite } =
+    useContext(FavoriteContext);
 
     const [isHovered, setIsHovered] = useState(false);
 
@@ -40,8 +48,27 @@ function CardsMovie({ movie }) {
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
                     />
-                    <Card.Body>
-                        <Card.Title style={{fontWeight:"bold"}}>{movie.title}</Card.Title>
+                    <Card.Body >
+                        <Card.Title style={{fontWeight:"bold", height:"50%"}}>{movie.title}</Card.Title>
+                        <div style={{display:"flex", justifyContent:"space-evenly", fontSize:"24px"}}>
+                            <Link to={`/detailMovie/${movie.id}`}>
+                                <FaEye style={{color:"black"}}/>
+                            </Link>
+                            <div>
+                            {getFavorite(movie.id) ? (
+                            <FaStar
+                                onClick={() => removeFavorite(movie)}
+                            />
+                        ) : (
+                            <FaRegStar
+                                onClick={() => addFavorite(movie)}
+                            />
+                        )}
+                                
+                            </div>
+                            
+                        </div>
+                        
                     </Card.Body>
                 </Card>
             </Col>

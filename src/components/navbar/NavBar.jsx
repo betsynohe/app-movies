@@ -22,7 +22,7 @@ export default function NavBar({ setSearch, search }) {
                 collapseOnSelect
                 expand="lg"
                 className={Styles["nav-link-custom"]}
-                style={{ backgroundColor: "rgb(58, 53, 53)", margin: "0" }}
+                style={{ backgroundColor: "rgb(33, 37, 41)", margin: "0" }}
                 data-bs-theme="light">
                 <Container>
                     <Navbar.Brand as={NavLink} to="/">

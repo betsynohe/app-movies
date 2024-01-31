@@ -1,4 +1,3 @@
-// ContainCards.jsx
 import React from "react";
 import CardsMovie from "./CardsMovie";
 import { Row } from "react-bootstrap";
