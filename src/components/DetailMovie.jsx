@@ -21,7 +21,8 @@ export default function DetailMovie() {
             <div
                 style={{
                     height: "100%",
-                    backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.4)), url( ${
+                    backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.5), 
+                    rgba(255, 255, 255, 0.4)), url( ${
                         data.backdrop_path
                             ? `https://image.tmdb.org/t/p/original${data.backdrop_path}?api_key=${apiKey}`
                             : NotImageBackdrop
@@ -33,8 +34,7 @@ export default function DetailMovie() {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                }}
-            >
+                }}>
                 <Container>
                     <Row>
                         <Col xs={12} md={6} lg={4}>
@@ -61,15 +61,13 @@ export default function DetailMovie() {
                                     flexDirection: "column",
                                     height: "100%",
                                     opacity: 0.8,
-                                }}
-                            >
+                                }}>
                                 <Card.Body>
                                     <Card.Title
                                         style={{
                                             fontWeight: "900",
                                             fontSize: "32px",
-                                        }}
-                                    >
+                                        }}>
                                         {data.title} -{" "}
                                         <span className="font-normal">
                                             {data.release_date?.split("-")[0]}
@@ -77,15 +75,13 @@ export default function DetailMovie() {
                                     </Card.Title>
                                     <Card.Subtitle
                                         className="mb-2 mt-4 fs-4"
-                                        style={{ fontWeight: "600" }}
-                                    >
+                                        style={{ fontWeight: "600" }}>
                                         Descripción:
                                     </Card.Subtitle>
                                     <Card.Text>{data.overview}</Card.Text>
                                     <Card.Subtitle
                                         className="mb-2 mt-4 fs-4"
-                                        style={{ fontWeight: "600" }}
-                                    >
+                                        style={{ fontWeight: "600" }}>
                                         Géneros:
                                     </Card.Subtitle>
                                     <ListGroup horizontal>
@@ -93,8 +89,7 @@ export default function DetailMovie() {
                                             data.genres.map(({ name, id }) => (
                                                 <ListGroup.Item
                                                     variant="dark"
-                                                    key={id}
-                                                >
+                                                    key={id}>
                                                     {name}
                                                 </ListGroup.Item>
                                             ))}
@@ -108,4 +103,3 @@ export default function DetailMovie() {
         </div>
     );
 }
-

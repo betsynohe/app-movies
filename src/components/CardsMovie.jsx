@@ -24,12 +24,12 @@ function CardsMovie({ movie }) {
             <Col>
                 <Card style={{height:"400px"}}
                     >
-                    <Card.Img
+                    <Card.Img style={{height:"70%"}}
                         variant="top"
                         src={
                             movie.backdrop_path
                                 ? `${image_path}${
-                                    movie.backdrop_path
+                                    movie.poster_path
                                 }?api_key=${
                                     import.meta.env.VITE_TMDB_API_KEY
                                 }`
@@ -41,12 +41,7 @@ function CardsMovie({ movie }) {
                         onMouseLeave={handleMouseLeave}
                     />
                     <Card.Body>
-                        <Card.Title>{movie.title}</Card.Title>
-                        <Card.Text>
-                            {movie.overview.length > 100
-                                ? movie.overview.substring(0, 100) + "..."
-                                : movie.overview}
-                        </Card.Text>
+                        <Card.Title style={{fontWeight:"bold"}}>{movie.title}</Card.Title>
                     </Card.Body>
                 </Card>
             </Col>
