@@ -60,8 +60,8 @@ const CarrouselCards = ({ url, title }) => {
                         <SwiperSlide key={movie.id}>
                             <Link
                                 to={`/detailMovie/${movie.id}`}
-                                style={{ textDecoration: "none" }}>
-                                <Card style={{ width: "350px" }}>
+                                style={{ textDecoration: "none", display:"flex", justifyContent:"center" }}>
+                                <Card style={{ width: "350px",}}>
                                     <Card.Img
                                         variant="top"
                                         src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}

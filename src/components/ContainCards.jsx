@@ -1,35 +1,22 @@
-import { Container, Row, Col } from "react-bootstrap";
+// ContainCards.jsx
+import React from "react";
 import CardsMovie from "./CardsMovie";
-import PaginationApp from "./PaginationApp";
+import { Row } from "react-bootstrap";
 
-export default function ContainCards({
-    data,
-    currentPage,
-    setCurrentPage,
-    totalPages,
-}) {
+function ContainCards({ data, setCurrentPage, currentPage, totalPages }) {
     return (
-        <Container
-            style={{
-                display: "flex",
-                width: "95%",
-                justifyContent: "space-around",
-                flexWrap: "wrap",
-                padding: "20px",
-            }}>
-            <Row md={3}>
-                {data &&
-                    data.map((movie) => (
-                        <Col key={movie.id}>
-                            <CardsMovie movie={movie} />
-                        </Col>
-                    ))}
-            </Row>
-            <PaginationApp
-                setCurrentPage={setCurrentPage}
-                currentPage={currentPage}
-                totalPages={totalPages}
-            />
-        </Container>
+        <Row xs={1} sm={2} md={3} lg={4} className="g-4">
+            {data.map((movie) => (
+                <CardsMovie
+                    key={movie.id}
+                    movie={movie}
+                    setCurrentPage={setCurrentPage}
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                />
+            ))}
+        </Row>
     );
 }
+
+export default ContainCards;

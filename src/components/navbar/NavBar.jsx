@@ -3,18 +3,26 @@ import Logo from "../../assets/pnglogo.png";
 import { MdMovieFilter } from "react-icons/md";
 import { BiSolidCameraMovie } from "react-icons/bi";
 import { FaStar } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { IoIosHome } from "react-icons/io";
 import Styles from "./Navbar.module.css";
+import useMovies from "../../customHooks/useMovies";
 
-export default function NavBar() {
+export default function NavBar({ setSearch, search }) {
+    const navigate = useNavigate();
+    const { setCurrentPage } = useMovies();
+    function handleSearchChange(e) {
+        setCurrentPage(1);
+        setSearch(e.target.value);
+        navigate("/");
+    }
     return (
         <>
             <Navbar
                 collapseOnSelect
                 expand="lg"
                 className={Styles["nav-link-custom"]}
-                style={{ backgroundColor: "rgb(58, 53, 53)", margin:"0" }}
+                style={{ backgroundColor: "rgb(58, 53, 53)", margin: "0" }}
                 data-bs-theme="light">
                 <Container>
                     <Navbar.Brand as={NavLink} to="/">
@@ -61,9 +69,12 @@ export default function NavBar() {
                             <Row>
                                 <Col xs="auto">
                                     <Form.Control
-                                        type="text"
+                                        type="search"
                                         placeholder="Buscar"
-                                        className="mr-sm-2"
+                                        className="mr-sm-2 "
+                                        aria-label="Search"
+                                        value={search}
+                                        onChange={handleSearchChange}
                                     />
                                 </Col>
                             </Row>
