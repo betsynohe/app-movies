@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
-export default function useDataMovies() {
+export default function useMovies() {
 
   const navigate = useNavigate()
   const [data, setData] = useState([])
@@ -15,6 +15,7 @@ export default function useDataMovies() {
         setData(data)
         setTotalPages(data.total_pages)
     } catch (error) {
+        console.error('Error fetching data:', error);
         navigate("/not-found")
     }
   }

@@ -1,79 +1,134 @@
-import React, { useEffect, useState } from "react";
-import Slider from "react-slick";
-import { Card, Button } from "react-bootstrap";
+import React, { useEffect, useContext, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import useMovies from "../customHooks/useMovies";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { FaEye, FaRegStar, FaStar } from "react-icons/fa";
+import { FavoriteContext } from "../context/FavoriteContext";
 
 const CarrouselCards = ({ url, title }) => {
     const { data, getData } = useMovies([]);
+    const { getFavorite, addFavorite, removeFavorite } =
+        useContext(FavoriteContext);
+
+    const [hoveredCard, setHoveredCard] = useState(null);
 
     useEffect(() => {
         getData(url);
     }, [url, getData]);
 
-    const sliderSettings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 5000,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 1,
-                    infinite: true,
-                    dots: true,
-                },
-            },
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                },
-            },
-        ],
-    };
-
     return (
-        <div style={{ marginTop: "25px" }}>
-            <h2 style={{ textAlign: "center", marginBottom: "20px", color:"white", fontSize: "36px" }}>
+        <div style={{ marginTop: "25px", margin: "25px 0px 25px 25px" }}>
+            <h2
+                style={{
+                    textAlign: "center",
+                    marginBottom: "20px",
+                    color: "white",
+                    fontSize: "36px",
+                }}>
                 {title}
             </h2>
-            <Slider {...sliderSettings}>
+            <Swiper
+                spaceBetween={10}
+                autoplay={{
+                    delay: 5000,
+                    disableOnInteraction: false,
+                }}
+                navigation={true}
+                modules={[Autoplay, Pagination, Navigation]}
+                breakpoints={{
+                    "@0.00": {
+                        slidesPerView: 1,
+                        spaceBetween: 10,
+                    },
+                    "@0.75": {
+                        slidesPerView: 2,
+                        spaceBetween: 20,
+                    },
+                    "@1.00": {
+                        slidesPerView: 3,
+                        spaceBetween: 40,
+                    },
+                    "@1.50": {
+                        slidesPerView: 4,
+                        spaceBetween: 50,
+                    },
+                }}>
                 {data.results &&
-                    data.results.map((movie) => (
-                        <div key={movie.id} style={{ margin: "0 10px"}}>
-                            <Card style={{ width: "400px" }}>
-                                <Card.Img
-                                    variant="top"
-                                    src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-                                />
-                                <Card.Body style={{
-                                    backgroundColor:"black",
-                                    margin:"30px"
-                                }}>
-                                    <Card.Title
-                                        style={{
-                                            fontWeight: "bold",
-                                            fontSize: "18px",
-                                            color: "white"
-                                        }}>
+                    data.results.map((movie, index) => (
+                        <SwiperSlide style={{display:"flex", justifyContent:"center"}} key={movie.id}>
+                            <Card
+                                style={{
+                                    Width: "350px",
+                                    transform:
+                                        hoveredCard === index
+                                            ? "scale(1)"
+                                            : "scale(0.9)",
+                                    transition: "transform 0.3s ease-in-out",
+                                }}
+                                onMouseEnter={() => setHoveredCard(index)}
+                                onMouseLeave={() => setHoveredCard(null)}>
+                                <Link
+                                    to={`/detailMovie/${movie.id}`}
+                                    style={{
+                                        textDecoration: "none",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                    }}>
+                                    <Card.Img
+                                        variant="top"
+                                        src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+                                    />
+                                </Link>
+                                <div
+                                    style={{
+                                        textAlign: "center",
+                                        marginTop: "5px",
+                                        marginBottom: "5px",
+                                    }}>
+                                    <h5 style={{ fontWeight: "bold" }}>
                                         {movie.title}
-                                    </Card.Title>
-                                    <Button variant="primary">
-                                        Ver detalles
-                                    </Button>
-                                </Card.Body>
+                                    </h5>
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            justifyContent: "space-evenly",
+                                            fontSize: "24px",
+                                        }}>
+                                        <Link to={`/detailMovie/${movie.id}`}>
+                                            <FaEye style={{ color: "black" }} />
+                                        </Link>
+                                        <div>
+                                            {getFavorite(movie.id) ? (
+                                                <FaStar
+                                                    onClick={() =>
+                                                        removeFavorite(movie)
+                                                    }
+                                                    style={{
+                                                        cursor: "pointer",
+                                                    }}
+                                                />
+                                            ) : (
+                                                <FaRegStar
+                                                    onClick={() =>
+                                                        addFavorite(movie)
+                                                    }
+                                                    style={{
+                                                        cursor: "pointer",
+                                                    }}
+                                                />
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
                             </Card>
-                        </div>
+                        </SwiperSlide>
                     ))}
-            </Slider>
+            </Swiper>
         </div>
     );
 };
