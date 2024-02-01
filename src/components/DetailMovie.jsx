@@ -1,13 +1,24 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import useMovies from "../customHooks/useMovies";
-import { Card, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
+import {
+    Card,
+    Col,
+    Container,
+    Image,
+    ListGroup,
+    Row,
+} from "react-bootstrap";
 import NotImagenPoster from "../assets/not-image-poster.png";
 import NotImageBackdrop from "../assets/not-image-backdrop.jpg";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { FavoriteContext } from "../context/FavoriteContext";
-import  {useMovieLoading }from "../customHooks/useMovieLoading";
+import { useMovieLoading } from "../customHooks/useMovieLoading";
 import SpinnerMovie from "./SpinnerMovie";
+import MovieTrailer from "./trailer/ViewTrailer";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { FaPlay } from "react-icons/fa";
 
 export default function DetailMovie() {
     const apiKey = import.meta.env.VITE_TMDB_API_KEY;
@@ -22,6 +33,11 @@ export default function DetailMovie() {
             `https://api.themoviedb.org/3/movie/${id}?language=es-ES&api_key=${apiKey}`
         );
     }, []);
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     return (
         <div>
@@ -132,11 +148,12 @@ export default function DetailMovie() {
                                             style={{ fontWeight: "600" }}>
                                             Géneros:
                                         </Card.Subtitle>
-                                        <ListGroup horizontal>
+                                        <ListGroup horizontal className="d-flex flex-wrap">
                                             {data.genres &&
                                                 data.genres.map(
                                                     ({ name, id }) => (
                                                         <ListGroup.Item
+                                                        className="mb-2"
                                                             variant="dark"
                                                             key={id}>
                                                             {name}
@@ -144,8 +161,35 @@ export default function DetailMovie() {
                                                     )
                                                 )}
                                         </ListGroup>
+                                        <div style={{marginTop:"20px"}}>
+                                            <Button
+                                                size="lg"
+                                                variant="dark"
+                                                onClick={handleShow}>
+                                                    <FaPlay style={{margin:"5px"}} />
+                                                Ver Tráiler
+                                            </Button>
+                                        </div>
                                     </Card.Body>
                                 </Card>
+                                <Modal
+                                    dialogClassName="modal-90w"
+                                    show={show}
+                                    onHide={handleClose}
+                                    animation={false}
+                                    centered
+                                    size="lg">
+                                        <Modal.Body>
+                                            <MovieTrailer id={id} />
+                                        </Modal.Body>
+                                    
+                                    <Button
+                                        size="small"
+                                        variant="dark"
+                                        onClick={handleClose}>
+                                        Cerrar
+                                    </Button>
+                                </Modal>
                             </Col>
                         </Row>
                     </Container>
