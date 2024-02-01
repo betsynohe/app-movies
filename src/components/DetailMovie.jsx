@@ -23,16 +23,15 @@ export default function DetailMovie() {
         <div>
             <div
                 style={{
-                    height: "100%",
+                    height: "100vh",
                     backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.5), 
-                    rgba(255, 255, 255, 0.4)), url( ${
-                        data.backdrop_path
-                            ? `https://image.tmdb.org/t/p/original${data.backdrop_path}?api_key=${apiKey}`
-                            : NotImageBackdrop
-                    })`,
+            rgba(255, 255, 255, 0.4)), url( ${
+                data.backdrop_path
+                    ? `https://image.tmdb.org/t/p/original${data.backdrop_path}?api_key=${apiKey}`
+                    : NotImageBackdrop
+            })`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
-                    height: "100vh",
                     padding: "20px",
                     display: "flex",
                     alignItems: "center",
@@ -44,16 +43,15 @@ export default function DetailMovie() {
                             <Image
                                 src={
                                     data.poster_path
-                                        ? `https://image.tmdb.org/t/p/w300${data.poster_path}?api_key=
-                                        ${apiKey}`
+                                        ? `https://image.tmdb.org/t/p/w300${data.poster_path}?api_key=${apiKey}`
                                         : NotImagenPoster
                                 }
                                 alt=""
+                                fluid
                                 style={{
-                                    width: "100%",
-                                    maxWidth: "300px",
-                                    margin: "0 auto 20px",
+                                    maxWidth: "100%",
                                     borderRadius: "10px",
+                                    margin: "0 auto",
                                 }}
                             />
                         </Col>
@@ -72,7 +70,8 @@ export default function DetailMovie() {
                                             fontWeight: "900",
                                             fontSize: "32px",
                                             display: "flex",
-                                            justifyContent: "space-around",
+                                            justifyContent:"space-evenly",
+                                            marginBottom: "10px",
                                         }}>
                                         <div>
                                             {data.title} -{" "}
@@ -84,7 +83,6 @@ export default function DetailMovie() {
                                                 }
                                             </span>
                                         </div>
-
                                         <div
                                             style={{
                                                 fontSize: "24px",
