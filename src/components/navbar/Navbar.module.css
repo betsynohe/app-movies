@@ -1,0 +1,11 @@
+/* NavBar.css */
+.nav-link-custom {
+    font-size: 22px;
+    color: white !important;
+    transition: color 0.3s ease-in-out;
+    margin-right: 20px;
+}
+
+.nav-link-custom:hover {
+    color: rgb(204, 116, 116) !important;
+}
