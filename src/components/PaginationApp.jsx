@@ -25,7 +25,7 @@ export default function PaginationApp({ setCurrentPage, currentPage, totalPages 
     };
 
     return (
-        <Pagination className="mt-4">
+        <Pagination className="mt-4" style={{display:"flex", justifyContent:"center"}}>
             <Pagination.Prev
                 onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}

@@ -1,18 +1,21 @@
-import React, { useEffect, } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-// import required modules
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { Card, Button } from "react-bootstrap";
 import useMovies from "../customHooks/useMovies";
+import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaRegStar, FaStar } from "react-icons/fa";
+import { FavoriteContext } from "../context/FavoriteContext";
 
 const CarrouselCards = ({ url, title }) => {
     const { data, getData } = useMovies([]);
+    const { getFavorite, addFavorite, removeFavorite } =
+        useContext(FavoriteContext);
+
+    const [hoveredCard, setHoveredCard] = useState(null);
 
     useEffect(() => {
         getData(url);
@@ -56,32 +59,73 @@ const CarrouselCards = ({ url, title }) => {
                     },
                 }}>
                 {data.results &&
-                    data.results.map((movie) => (
+                    data.results.map((movie, index) => (
                         <SwiperSlide key={movie.id}>
-                            <Link
-                                to={`/detailMovie/${movie.id}`}
-                                style={{ textDecoration: "none", display:"flex", justifyContent:"center" }}>
-                                <Card style={{ width: "350px",}}>
+                            <Card
+                                style={{
+                                    width: "350px",
+                                    transform:
+                                        hoveredCard === index
+                                            ? "scale(1)"
+                                            : "scale(0.9)",
+                                    transition: "transform 0.3s ease-in-out",
+                                }}
+                                onMouseEnter={() => setHoveredCard(index)}
+                                onMouseLeave={() => setHoveredCard(null)}>
+                                <Link
+                                    to={`/detailMovie/${movie.id}`}
+                                    style={{
+                                        textDecoration: "none",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                    }}>
                                     <Card.Img
                                         variant="top"
                                         src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
                                     />
+                                </Link>
+                                <div
+                                    style={{
+                                        textAlign: "center",
+                                        marginTop: "5px",
+                                        marginBottom: "5px",
+                                    }}>
+                                    <h5 style={{ fontWeight: "bold" }}>
+                                        {movie.title}
+                                    </h5>
                                     <div
                                         style={{
-                                            textAlign: "center",
-                                            marginTop: "5px",
-                                            marginBottom: "5px",
+                                            display: "flex",
+                                            justifyContent: "space-evenly",
+                                            fontSize: "24px",
                                         }}>
-                                        <h5
-                                            style={{
-                                                fontWeight: "bold",
-                                            }}>
-                                            {movie.title}
-                                        </h5>
-                                        <FaEye />
+                                        <Link to={`/detailMovie/${movie.id}`}>
+                                            <FaEye style={{ color: "black" }} />
+                                        </Link>
+                                        <div>
+                                            {getFavorite(movie.id) ? (
+                                                <FaStar
+                                                    onClick={() =>
+                                                        removeFavorite(movie)
+                                                    }
+                                                    style={{
+                                                        cursor: "pointer",
+                                                    }}
+                                                />
+                                            ) : (
+                                                <FaRegStar
+                                                    onClick={() =>
+                                                        addFavorite(movie)
+                                                    }
+                                                    style={{
+                                                        cursor: "pointer",
+                                                    }}
+                                                />
+                                            )}
+                                        </div>
                                     </div>
-                                </Card>
-                            </Link>
+                                </div>
+                            </Card>
                         </SwiperSlide>
                     ))}
             </Swiper>

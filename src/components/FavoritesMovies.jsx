@@ -9,23 +9,23 @@ export default function FavoritesMovies() {
 
     return (
         <Container className="mt-5">
-            <Row className="justify-content-center">
-                <Col xs={12} md={10} lg={4}>
-                    <Card bg="light" text="dark" className="mt-4 mb-4">
-                        <Card.Body className="text-center">
-                            <Card.Title className="fw-bold fs-2">
-                                Favoritas
-                            </Card.Title>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            </Row>
             {allFavorits.length ? (
-                <Row style={{height:"100vh"}}>
+                <div>
+                    <Row className="justify-content-center">
+                        <Col xs={12} md={10} lg={4}>
+                            <Card bg="light" text="dark" className="mt-4 mb-4">
+                                <Card.Body className="text-center">
+                                    <Card.Title className="fw-bold fs-2">
+                                        Favoritas
+                                    </Card.Title>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    </Row>
                     <Col>
                         <ContainCards data={allFavorits} />
                     </Col>
-                </Row>
+                </div>
             ) : (
                 <NotFound />
             )}

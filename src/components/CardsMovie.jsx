@@ -58,10 +58,12 @@ function CardsMovie({ movie }) {
                             {getFavorite(movie.id) ? (
                             <FaStar
                                 onClick={() => removeFavorite(movie)}
+                                style={{ cursor: "pointer" }}
                             />
                         ) : (
                             <FaRegStar
                                 onClick={() => addFavorite(movie)}
+                                style={{ cursor: "pointer" }}
                             />
                         )}
                                 

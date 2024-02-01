@@ -1,15 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import useMovies from "../customHooks/useMovies";
 import { Card, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
-import NotImagenPoster from "../assets/not-image-poster.jpg";
+import NotImagenPoster from "../assets/not-image-poster.png";
 import NotImageBackdrop from "../assets/not-image-backdrop.jpg";
+import { FaRegStar, FaStar } from "react-icons/fa";
+import { FavoriteContext } from "../context/FavoriteContext";
 
 export default function DetailMovie() {
     const apiKey = import.meta.env.VITE_TMDB_API_KEY;
     const { id } = useParams();
     const { getData, data } = useMovies();
-
+    const { getFavorite, addFavorite, removeFavorite } =
+        useContext(FavoriteContext);
     useEffect(() => {
         getData(
             `https://api.themoviedb.org/3/movie/${id}?language=es-ES&api_key=${apiKey}`
@@ -41,7 +44,8 @@ export default function DetailMovie() {
                             <Image
                                 src={
                                     data.poster_path
-                                        ? `https://image.tmdb.org/t/p/w300${data.poster_path}?api_key=${apiKey}`
+                                        ? `https://image.tmdb.org/t/p/w300${data.poster_path}?api_key=
+                                        ${apiKey}`
                                         : NotImagenPoster
                                 }
                                 alt=""
@@ -67,11 +71,46 @@ export default function DetailMovie() {
                                         style={{
                                             fontWeight: "900",
                                             fontSize: "32px",
+                                            display: "flex",
+                                            justifyContent: "space-around",
                                         }}>
-                                        {data.title} -{" "}
-                                        <span className="font-normal">
-                                            {data.release_date?.split("-")[0]}
-                                        </span>
+                                        <div>
+                                            {data.title} -{" "}
+                                            <span className="font-normal">
+                                                {
+                                                    data.release_date?.split(
+                                                        "-"
+                                                    )[0]
+                                                }
+                                            </span>
+                                        </div>
+
+                                        <div
+                                            style={{
+                                                fontSize: "24px",
+                                            }}>
+                                            <div>
+                                                {getFavorite(data.id) ? (
+                                                    <FaStar
+                                                        onClick={() =>
+                                                            removeFavorite(data)
+                                                        }
+                                                        style={{
+                                                            cursor: "pointer",
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    <FaRegStar
+                                                        onClick={() =>
+                                                            addFavorite(data)
+                                                        }
+                                                        style={{
+                                                            cursor: "pointer",
+                                                        }}
+                                                    />
+                                                )}
+                                            </div>
+                                        </div>
                                     </Card.Title>
                                     <Card.Subtitle
                                         className="mb-2 mt-4 fs-4"
