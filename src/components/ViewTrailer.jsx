@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import YouTube from "react-youtube";
-import useMovies from "../../customHooks/useMovies";
-import { useMovieLoading } from "../../customHooks/useMovieLoading";
-import SpinnerMovie from "../SpinnerMovie";
+import useMovies from "../customHooks/useMovies";
+import { useMovieLoading } from "../customHooks/useMovieLoading";
+import SpinnerMovie from "./SpinnerMovie";
 
 const MovieTrailer = ({ id }) => {
   const { getData, data } = useMovies();

@@ -60,10 +60,10 @@ const CarrouselCards = ({ url, title }) => {
                 }}>
                 {data.results &&
                     data.results.map((movie, index) => (
-                        <SwiperSlide key={movie.id}>
+                        <SwiperSlide style={{display:"flex", justifyContent:"center"}} key={movie.id}>
                             <Card
                                 style={{
-                                    width: "350px",
+                                    Width: "350px",
                                     transform:
                                         hoveredCard === index
                                             ? "scale(1)"

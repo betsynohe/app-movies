@@ -15,7 +15,7 @@ import { FaRegStar, FaStar } from "react-icons/fa";
 import { FavoriteContext } from "../context/FavoriteContext";
 import { useMovieLoading } from "../customHooks/useMovieLoading";
 import SpinnerMovie from "./SpinnerMovie";
-import MovieTrailer from "./trailer/ViewTrailer";
+import MovieTrailer from "./ViewTrailer";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FaPlay } from "react-icons/fa";
