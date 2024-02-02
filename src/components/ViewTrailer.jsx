@@ -21,7 +21,7 @@ const MovieTrailer = ({ id }) => {
         <SpinnerMovie />
       ) : (
         <div>
-          {data.results ? (
+          {data.results && data.results.length > 0 ? (
             <YouTube
               videoId={data.results[0].key}
               opts={{
@@ -42,5 +42,6 @@ const MovieTrailer = ({ id }) => {
 };
 
 export default MovieTrailer;
+
 
 

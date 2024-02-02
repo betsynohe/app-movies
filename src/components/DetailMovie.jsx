@@ -52,7 +52,14 @@ export default function DetailMovie() {
                     }}>
                     <Container fluid>
                         <Row>
-                            <Col xs={12} lg={4} style={{display:"flex", justifyContent:"center", marginBottom:"10px"}}>
+                            <Col
+                                xs={12}
+                                lg={4}
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    marginBottom: "10px",
+                                }}>
                                 <Image
                                     src={
                                         data.poster_path
@@ -173,7 +180,6 @@ export default function DetailMovie() {
                                     <Modal.Body>
                                         <MovieTrailer id={id} />
                                     </Modal.Body>
-
                                     <Button
                                         size="small"
                                         variant="dark"
