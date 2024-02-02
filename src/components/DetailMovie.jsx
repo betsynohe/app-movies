@@ -1,14 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import useMovies from "../customHooks/useMovies";
-import {
-    Card,
-    Col,
-    Container,
-    Image,
-    ListGroup,
-    Row,
-} from "react-bootstrap";
+import { Card, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
 import NotImagenPoster from "../assets/not-image-poster.png";
 import NotImageBackdrop from "../assets/not-image-backdrop.jpg";
 import { FaRegStar, FaStar } from "react-icons/fa";
@@ -32,7 +25,7 @@ export default function DetailMovie() {
         getData(
             `https://api.themoviedb.org/3/movie/${id}?language=es-ES&api_key=${apiKey}`
         );
-    }, []);
+    }, [id, apiKey, getData]);
 
     const [show, setShow] = useState(false);
 
@@ -46,27 +39,32 @@ export default function DetailMovie() {
             ) : (
                 <div
                     style={{
-                        height: "100vh",
                         backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.5), 
-            rgba(255, 255, 255, 0.4)), url( ${
-                data.backdrop_path
-                    ? `https://image.tmdb.org/t/p/original${data.backdrop_path}?api_key=${apiKey}`
-                    : NotImageBackdrop
-            })`,
+                        rgba(255, 255, 255, 0.4)), url( ${
+                            data.backdrop_path
+                                ? `https://image.tmdb.org/t/p/original${data.backdrop_path}?
+                                api_key=${apiKey}`
+                                : NotImageBackdrop
+                        })`,
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                         padding: "20px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
                     }}>
-                    <Container>
+                    <Container fluid>
                         <Row>
-                            <Col xs={12} md={6} lg={4}>
+                            <Col
+                                xs={12}
+                                lg={4}
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    marginBottom: "10px",
+                                }}>
                                 <Image
                                     src={
                                         data.poster_path
-                                            ? `https://image.tmdb.org/t/p/w300${data.poster_path}?api_key=${apiKey}`
+                                            ? `https://image.tmdb.org/t/p/w300${data.poster_path}?
+                                            api_key=${apiKey}`
                                             : NotImagenPoster
                                     }
                                     alt=""
@@ -78,22 +76,17 @@ export default function DetailMovie() {
                                     }}
                                 />
                             </Col>
-                            <Col xs={12} md={6} lg={8}>
+                            <Col xs={12} lg={8}>
                                 <Card
                                     style={{
                                         width: "100%",
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        height: "100%",
-                                        opacity: 0.8,
+                                        margin: "0 auto",
                                     }}>
                                     <Card.Body>
                                         <Card.Title
                                             style={{
                                                 fontWeight: "900",
                                                 fontSize: "32px",
-                                                display: "flex",
-                                                justifyContent: "space-evenly",
                                                 marginBottom: "10px",
                                             }}>
                                             <div>
@@ -109,6 +102,7 @@ export default function DetailMovie() {
                                             <div
                                                 style={{
                                                     fontSize: "24px",
+                                                    marginTop: "10px",
                                                 }}>
                                                 <div>
                                                     {getFavorite(data.id) ? (
@@ -148,12 +142,14 @@ export default function DetailMovie() {
                                             style={{ fontWeight: "600" }}>
                                             Géneros:
                                         </Card.Subtitle>
-                                        <ListGroup horizontal className="d-flex flex-wrap">
+                                        <ListGroup
+                                            horizontal
+                                            className="d-flex flex-wrap">
                                             {data.genres &&
                                                 data.genres.map(
                                                     ({ name, id }) => (
                                                         <ListGroup.Item
-                                                        className="mb-2"
+                                                            className="mb-2"
                                                             variant="dark"
                                                             key={id}>
                                                             {name}
@@ -161,12 +157,14 @@ export default function DetailMovie() {
                                                     )
                                                 )}
                                         </ListGroup>
-                                        <div style={{marginTop:"20px"}}>
+                                        <div style={{ marginTop: "20px" }}>
                                             <Button
                                                 size="lg"
                                                 variant="dark"
                                                 onClick={handleShow}>
-                                                    <FaPlay style={{margin:"5px"}} />
+                                                <FaPlay
+                                                    style={{ margin: "5px" }}
+                                                />
                                                 Ver Tráiler
                                             </Button>
                                         </div>
@@ -179,14 +177,14 @@ export default function DetailMovie() {
                                     animation={false}
                                     centered
                                     size="lg">
-                                        <Modal.Body>
-                                            <MovieTrailer id={id} />
-                                        </Modal.Body>
-                                    
+                                    <Modal.Body>
+                                        <MovieTrailer id={id} />
+                                    </Modal.Body>
                                     <Button
                                         size="small"
                                         variant="dark"
-                                        onClick={handleClose}>
+                                        onClick={handleClose}
+                                        style={{ margin: "10px" }}>
                                         Cerrar
                                     </Button>
                                 </Modal>
